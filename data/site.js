@@ -32,6 +32,21 @@ window.RJ_CONFIG = {
   shopPhoto: "assets/img/photo-01-sm.jpg",
 
   /* ---------------------------------------------------------------------------
+      2b. HERO IMAGE REEL
+      Photos that cycle automatically in the big hero frame. Use any key from
+      the image library below, or a full image path. The first photo is shown
+      on load. Add or remove entries freely — controls and dots adapt.
+   --------------------------------------------------------------------------- */
+  heroReel: [
+    { image: "shop",     caption: "Essaouira · Morocco" },
+    { image: "shopSign", caption: "Goût d'Amour · Chez Hamza" },
+    { image: "natural",  caption: "Freshly pressed, every day" },
+    { image: "fruit",    caption: "Sun-ripened fruit" },
+    { image: "cocktail", caption: "Made for moments" },
+    { image: "board",    caption: "Taste of Love" }
+  ],
+
+  /* ---------------------------------------------------------------------------
      3. CONTACT & LINKS — placeholders until the owner fills them in
   --------------------------------------------------------------------------- */
   contact: {
@@ -71,6 +86,11 @@ window.RJ_CONFIG = {
     fruit: "assets/img/photo-05-sm.jpg",
     fruitPortrait: "assets/img/photo-06-sm.jpg",
     board: "assets/img/photo-11.jpg",
+    photo02: "assets/img/photo-02-sm.jpg",
+    photo03: "assets/img/photo-03-sm.jpg",
+    photo07: "assets/img/photo-07-sm.jpg",
+    photo08: "assets/img/photo-08-sm.jpg",
+    photo10: "assets/img/photo-10-sm.jpg",
 
     orange: "https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&w=800&q=80",
     citrus: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=800&q=80",
@@ -134,15 +154,6 @@ window.RJ_CONFIG = {
         { name: "Banana Smoothie", nameFr: "Smoothie banane", description: "Creamy banana, naturally sweet.", image: "banana", price: "" },
         { name: "Mango Smoothie", nameFr: "Smoothie mangue", description: "Mango with a soft, velvety finish.", image: "smoothie", price: "" }
       ]
-    },
-    {
-      id: "special-romantic", number: "05", name: "Special Romantic Drinks", nameFr: "Boissons Romantiques",
-      note: "Little signature touches, made for sharing.",
-      items: [
-        { name: "Romantic Special", nameFr: "Spécial romantique", description: "Our special signature drink.", image: "mocktail", price: "" },
-        { name: "Love Cocktail", nameFr: "Cocktail amour", description: "A sweet surprise in every sip.", image: "cocktail", price: "" },
-        { name: "Chef's Special", nameFr: "Spécial du chef", description: "Ask us what's inside today's creation.", image: "platter", price: "" }
-      ]
     }
   ],
 
@@ -151,16 +162,16 @@ window.RJ_CONFIG = {
   --------------------------------------------------------------------------- */
   gallery: [
     { image: "shop", title: "Our corner in Essaouira", tag: "The shop", size: "wide" },
-    { image: "fruit", title: "Fresh colours", tag: "Fresh fruit" },
-    { image: "natural", title: "100% natural", tag: "Fresh juices" },
-    { image: "orange", title: "Squeezed fresh", tag: "Orange juice" },
     { image: "shopSign", title: "Goût d'Amour", tag: "The shop", size: "tall" },
-    { image: "tropical", title: "Tropical colours", tag: "Tropical" },
-    { image: "cocktail", title: "Made for moments", tag: "Cocktails" },
-    { image: "smoothie", title: "Creamy & cold", tag: "Smoothies" },
+    { image: "photo02", title: "Around the shop", tag: "The shop" },
+    { image: "natural", title: "100% natural", tag: "Fresh juices" },
+    { image: "photo03", title: "Chez Hamza", tag: "The shop" },
+    { image: "fruit", title: "Fresh colours", tag: "Fresh fruit" },
+    { image: "photo07", title: "Fresh from the market", tag: "Fresh fruit", size: "tall" },
+    { image: "photo08", title: "Made with love", tag: "Fresh juices" },
     { image: "fruitPortrait", title: "Sunshine in a glass", tag: "Fresh fruit", size: "tall" },
     { image: "board", title: "Our flavours", tag: "Fresh juices" },
-    { image: "mocktail", title: "A taste of love", tag: "Romantic drinks" },
-    { image: "platter", title: "Fruit arrangements", tag: "Fresh fruit" }
+    { image: "shopMood", title: "The atmosphere", tag: "The shop", size: "wide" },
+    { image: "photo10", title: "A taste of love", tag: "Romantic drinks" }
   ]
 };

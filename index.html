@@ -43,8 +43,8 @@
 
       <nav class="nav" id="primaryNav" aria-label="Primary navigation">
         <a href="#home" class="nav-link is-active">Home</a>
-        <a href="#gallery" class="nav-link">Gallery</a>
         <a href="#menu" class="nav-link">Menu</a>
+        <a href="#gallery" class="nav-link">Gallery</a>
         <a href="#contact" class="nav-link">Contact</a>
       </nav>
 
@@ -82,11 +82,11 @@
 
         <div class="hero-media" data-reveal>
           <div class="hero-frame">
-            <img id="heroImage" src="assets/img/photo-01-sm.jpg" alt="Romantic Juice – Chez Hamza shop front in Essaouira, Morocco" fetchpriority="high">
+            <div class="hero-reel-track" id="heroReelTrack" aria-label="Photos of Romantic Juice — scroll to browse" tabindex="0"></div>
             <div class="hero-frame-shade" aria-hidden="true"></div>
-            <div class="hero-frame-label" aria-hidden="true">
-              <span class="hero-frame-diamond">✦</span>
-              <span>Essaouira · Morocco</span>
+            <div class="hero-reel-hint" aria-hidden="true">
+              <span>Scroll</span>
+              <svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
             </div>
           </div>
           <div class="hero-seal" aria-hidden="true">
@@ -97,22 +97,10 @@
         </div>
       </div>
 
-      <a class="scroll-cue" href="#gallery" aria-label="Scroll to gallery">
+      <a class="scroll-cue" href="#menu" aria-label="Scroll to menu">
         <span>Explore</span>
         <span class="scroll-cue-line" aria-hidden="true"></span>
       </a>
-    </section>
-
-    <!-- ============================= GALLERY ============================= -->
-    <section class="section gallery-section" id="gallery" aria-labelledby="galleryTitle">
-      <div class="container">
-        <div class="section-heading" data-reveal>
-          <p class="eyebrow"><span class="eyebrow-line"></span> The Experience</p>
-          <h2 id="galleryTitle">Our Atmosphere <em>&amp;</em> Fresh Flavors</h2>
-          <p class="section-heading-text">Real moments, real fruit and the warm welcome of Chez Hamza.</p>
-        </div>
-        <div class="gallery-grid" id="galleryGrid" aria-label="Photo gallery"></div>
-      </div>
     </section>
 
     <!-- ============================= MENU ============================= -->
@@ -127,6 +115,18 @@
         </div>
         <div class="menu-grid" id="menuGrid"></div>
         <p class="menu-footnote" id="menuNote"></p>
+      </div>
+    </section>
+
+    <!-- ============================= GALLERY ============================= -->
+    <section class="section gallery-section" id="gallery" aria-labelledby="galleryTitle">
+      <div class="container">
+        <div class="section-heading" data-reveal>
+          <p class="eyebrow"><span class="eyebrow-line"></span> The Experience</p>
+          <h2 id="galleryTitle">Our Atmosphere <em>&amp;</em> Fresh Flavors</h2>
+          <p class="section-heading-text">Real moments, real fruit and the warm welcome of Chez Hamza.</p>
+        </div>
+        <div class="gallery-grid" id="galleryGrid" aria-label="Photo gallery"></div>
       </div>
     </section>
 
@@ -200,7 +200,7 @@
 
         <nav class="footer-links" aria-label="Footer navigation">
           <h3>Explore</h3>
-          <a href="#home">Home</a><a href="#gallery">Gallery</a><a href="#menu">Menu</a><a href="#contact">Contact</a>
+          <a href="#home">Home</a><a href="#menu">Menu</a><a href="#gallery">Gallery</a><a href="#contact">Contact</a>
         </nav>
 
         <div class="footer-connect">

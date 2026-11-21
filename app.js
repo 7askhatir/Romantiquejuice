@@ -38,11 +38,7 @@ document.documentElement.classList.add("js");
     if (BRAND.heroText) $("#heroText").textContent = BRAND.heroText;
     if (BRAND.slogan) $("#heroSlogan").textContent = BRAND.slogan;
 
-    var hero = $("#heroImage");
-    if (CFG.shopPhoto) {
-      hero.src = CFG.shopPhoto;
-      hero.alt = "Romantic Juice – Chez Hamza shop in " +
-        (BRAND.city || "Essaouira") + ", " + (BRAND.country || "Morocco");
+    if (CFG.shopPhoto && $("#home")) {
       $("#home").style.setProperty("--hero-photo", 'url("' + CFG.shopPhoto + '")');
     }
   }
@@ -80,6 +76,97 @@ document.documentElement.classList.add("js");
         el.setAttribute("aria-label", label + " — link to be added by the owner");
         el.addEventListener("click", function (e) { e.preventDefault(); });
       }
+    });
+  }
+
+  /* ----------------------------- HERO IMAGE REEL --------------------------- */
+  function initHeroReel() {
+    var track = $("#heroReelTrack");
+    if (!track) return;
+
+    var configured = Array.isArray(CFG.heroReel) ? CFG.heroReel : [];
+    var slides = configured.map(function (slide) {
+      var source = typeof slide === "string" ? slide : (slide && slide.image);
+      return {
+        src: resolveImage(source),
+        caption: (slide && slide.caption) || "Essaouira · Morocco"
+      };
+    }).filter(function (slide) { return !!slide.src; });
+
+    if (!slides.length) {
+      var fallback = CFG.shopPhoto || resolveImage("shop") || "";
+      if (fallback) slides = [{ src: fallback, caption: "Essaouira · Morocco" }];
+    }
+    if (!slides.length) return;
+
+    track.innerHTML = slides.map(function (slide, i) {
+      return '<figure class="hero-reel-slide">' +
+        '<img src="' + esc(slide.src) + '" alt="' + esc(slide.caption + ' — Romantic Juice, Chez Hamza') + '"' +
+        (i === 0 ? ' fetchpriority="high"' : ' loading="lazy"') + ' decoding="async">' +
+        '<figcaption class="hero-reel-caption">' +
+          '<span class="hero-frame-diamond" aria-hidden="true">✦</span>' +
+          '<span>' + esc(slide.caption) + '</span>' +
+        '</figcaption>' +
+      '</figure>';
+    }).join("");
+
+    var home = $("#home");
+    var hint = $(".hero-reel-hint");
+    if (home) home.style.setProperty("--hero-photo", 'url("' + slides[0].src + '")');
+    if (hint && slides.length < 2) hint.hidden = true;
+
+    // Keep the blurred hero background in sync with the visible photo.
+    var scrolling = false;
+    track.addEventListener("scroll", function () {
+      if (scrolling) return;
+      scrolling = true;
+      window.requestAnimationFrame(function () {
+        var i = Math.round(track.scrollLeft / (track.clientWidth || 1));
+        i = Math.max(0, Math.min(slides.length - 1, i));
+        if (home) home.style.setProperty("--hero-photo", 'url("' + slides[i].src + '")');
+        scrolling = false;
+      });
+    }, { passive: true });
+
+    // Drag with a mouse; touch devices scroll the strip natively.
+    var dragging = false;
+    var pointerId = null;
+    var startX = 0;
+    var startScroll = 0;
+
+    track.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse") return;
+      dragging = true;
+      pointerId = e.pointerId;
+      startX = e.clientX;
+      startScroll = track.scrollLeft;
+      track.classList.add("is-dragging");
+      if (track.setPointerCapture) track.setPointerCapture(e.pointerId);
+    });
+
+    track.addEventListener("pointermove", function (e) {
+      if (!dragging || e.pointerId !== pointerId) return;
+      e.preventDefault();
+      track.scrollLeft = startScroll - (e.clientX - startX);
+    });
+
+    function endDrag(e) {
+      if (!dragging || (e && e.pointerId !== pointerId)) return;
+      dragging = false;
+      track.classList.remove("is-dragging");
+      if (pointerId != null && track.releasePointerCapture && track.hasPointerCapture && track.hasPointerCapture(pointerId)) {
+        track.releasePointerCapture(pointerId);
+      }
+      pointerId = null;
+    }
+    track.addEventListener("pointerup", endDrag);
+    track.addEventListener("pointercancel", endDrag);
+    track.addEventListener("lostpointercapture", endDrag);
+
+    track.addEventListener("keydown", function (e) {
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+      e.preventDefault();
+      track.scrollLeft += (e.key === "ArrowRight" ? 1 : -1) * track.clientWidth;
     });
   }
 
@@ -256,7 +343,7 @@ document.documentElement.classList.add("js");
     window.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    var sections = ["home", "gallery", "menu", "contact"]
+    var sections = ["home", "menu", "gallery", "contact"]
       .map(function (id) { return document.getElementById(id); }).filter(Boolean);
     if ("IntersectionObserver" in window) {
       var observer = new IntersectionObserver(function (entries) {
@@ -292,6 +379,7 @@ document.documentElement.classList.add("js");
   /* --------------------------------- BOOT -------------------------------- */
   function init() {
     applyBrand();
+    initHeroReel();
     applyContact();
     renderMenu();
     renderGallery();
